@@ -1,0 +1,19 @@
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  nats:
+    container_name: nats-server
+    image: bitnami/nats:latest
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
+      - 9222:9222
+    volumes:
+      - ./nats-server.conf:/bitnami/nats/conf/nats-server.conf:ro
+    environment:
+      NATS_CONF_FILE: /bitnami/nats/conf/nats-server.conf
+    networks:
+      - app-tier
